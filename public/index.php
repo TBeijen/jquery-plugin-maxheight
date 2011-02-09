@@ -4,6 +4,13 @@
     <title>jQuery height plugin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
+html {
+/*    padding:0;*/
+}
+body {
+/*    margin:0;
+    padding:0;*/
+}
 #header {
     height:100px;
     background-color:yellow;
