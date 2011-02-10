@@ -5,11 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
 html {
-/*    padding:0;*/
+    padding:0px;
 }
 body {
-/*    margin:0;
-    padding:0;*/
+    mmmargin:3px;
+    pppadding:5px;
 }
 #header {
     height:100px;
@@ -19,12 +19,12 @@ body {
     padding:20px 0;
 }
 #footer {
-    height:50px;
+    height:70px;
     background-color:yellow;
     clear:both;
 }
 #panelGroup .column {
-    width:50%;
+    width:49%;
     float:left;
     display:block;
 }
@@ -33,11 +33,15 @@ body {
     min-height:20px;
 }
 #panelRight .content {
-    background-color:#DDD;
+    background-color:#CCD;
     min-height:20px;
 }
 #search {
     background-color:#CCC;
+}
+#log {
+	height:200px;
+	overflow:scroll;
 }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
@@ -58,7 +62,8 @@ jQuery(document).ready(function($) {
               <div class="column" id="panelLeft">
                 <div id="search">Search</div>
                 <div class="content">
-
+					<h3>log:</h3>
+					<div id="log"></div>
                 </div>
               </div>
               <div class="column" id="panelRight">

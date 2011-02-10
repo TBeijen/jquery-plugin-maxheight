@@ -12,49 +12,55 @@
  */
 (function($){
     $.fn.maxheight = function() {
-        var pluginScope = this;
-        $(window).resize(function(){
-            return pluginScope.each(function() {
-                $this = $(this);
+		var log = function(msg) {
+			$('#log').html($('#log').html() + msg + '<br />');
+		}
+		
+		return this.each(function() {
+			$this = $(this);
 
-                if (console && console.log) {
-                    console.log('document (height, innerH, outerH, outerH(true):');
-                    console.log($(document).height());
-//                console.log($(document).innerHeight());
-//                console.log($(document).outerHeight());
-//                console.log($(document).outerHeight(true));
+			// 2000px height
+			$this.height(2000);
+			var docMaxH = $(document).height();
 
-                    console.log('window (height, innerH, outerH, outerH(true):');
-                    console.log($(window).height());
-//                console.log($(window).innerHeight());
-//                console.log($(window).outerHeight());
-//                console.log($(window).outerHeight(true));
+		
+			$('#log').html('');
+			
+			log(!!document.all);
+			
+			log('document (height, innerH, outerH, outerH(true):');
+			log($(document).height());
+//					log($(document).innerHeight());
+//					log($(document).outerHeight());
+//					log($(document).outerHeight(true));
 
-                    console.log('body (height, innerH, outerH, outerH(true):');
-                    console.log($('body').height());
-                    console.log($('body').innerHeight());
-                    console.log($('body').outerHeight());
-                    console.log($('body').outerHeight(true));
-                }
+			log('window (height, innerH, outerH, outerH(true):');
+			log($(window).height());
+//					log($(window).innerHeight());
+//					log($(window).outerHeight());
+//					log($(window).outerHeight(true));
+
+			log('body (height, innerH, outerH, outerH(true):');
+			log($('body').height());
+			log($('body').innerHeight());
+			log($('body').outerHeight());
+			log($('body').outerHeight(true));
                 
-                // 2000px height
-                $this.height(2000);
-                var docMaxH = $(document).height();
+			// determine viewport height and calculate how much to reduce
+			var vpH = $(window).height();
+			var reduce = docMaxH - vpH;
+			var reduce = $('body').outerHeight(true) - vpH;
 
-                // determine viewport height and calculate how much to reduce
-                var vpH = $(window).height();
-                var reduce = docMaxH - vpH;
+			// TODO: determine min-height as set in css or given as param.
+			// avoid setting height lower than 0
 
-                // TODO: determine min-height as set in css or given as param.
-                // avoid setting height lower than 0
-
-                // apply new height
-                var newH = 2000 - reduce;
-                if (newH < 0) {
-                    newH = 0;
-                }
-                $this.height(newH);
-            });
-        }).resize();
+			// apply new height
+			var newH = 2000 - reduce;
+			
+			if (newH < 0) {
+				newH = 0;
+			}
+			$this.height(newH);
+		});
     };
 })(jQuery);
