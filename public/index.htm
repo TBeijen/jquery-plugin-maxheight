@@ -49,6 +49,13 @@ body {
     <script>
 jQuery(document).ready(function($) {
     $('#panelGroup .content').maxheight();
+	
+	var counter = counter || 0;
+	jQuery(window).resize(function() {
+		$('#panelGroup .content').maxheight();
+		$('#log').html($('#log').html() + 'resize ' +counter+ '<br>');
+		counter++;
+	});
 });
     </script>
   </head>

@@ -19,9 +19,44 @@
 		return this.each(function() {
 			$this = $(this);
 
+			// obtain amount to reduce from viewport height or determine
+			var data = $this.data('maximizeHeight');
+			if (!data) {
+			
+				$this.height(2000);
+				var docMaxH = $(document).height();
+				
+				// determine viewport height and calculate how much to reduce
+				var vpH = $(window).height();
+				var reduce = docMaxH - vpH;
+				var reduce = $('body').outerHeight(true) - vpH;
+				
+				// apply new height
+				var calcH = 2000 - reduce;
+
+				var vpReduce = vpH - calcH;
+				data = {'vpReduce': vpReduce};
+				$this.data('maximizeHeight', data);
+			}
+
+			
+			var vpH = $(window).height();
+			var newH = vpH - data.vpReduce;
+			if (newH < 0) {
+				newH = 0;
+			}
+			$this.height(newH);
+
+			return;
+			// return if currently running to prevent circular resize events
+//			if (data.running) {
+			//	return;
+	//		}
+			//data.running = true;
+			//$this.data('maximizeHeight', data);
+			
+			
 			// 2000px height
-			$this.height(2000);
-			var docMaxH = $(document).height();
 
 		
 			$('#log').html('');
@@ -54,13 +89,12 @@
 			// TODO: determine min-height as set in css or given as param.
 			// avoid setting height lower than 0
 
-			// apply new height
-			var newH = 2000 - reduce;
+
+			log(vpReduce);
 			
-			if (newH < 0) {
-				newH = 0;
-			}
-			$this.height(newH);
+//			data.running = false;
+//			$this.data('maximizeHeight', data);
+			
 		});
     };
 })(jQuery);
